@@ -1,13 +1,13 @@
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
+def extract_cases(case_text):
+    img_stat = case_text.find('img') is not None
+    if not img_stat:
+        return
 
-def click_sequence():
-    driver = webdriver.Firefox()
-    driver.get("https://csgostash.com/")
-    elem = driver.find_element_by_xpath('//*[@id="navbar-expandable"]/ul/li[7]/a')
-    #XPath of the button
+    case_name = case_text.find('img').get('alt')
+    except_1 = case_name != 'All Skin Cases'
+    except_2 = case_name != 'Souvenir Packages'
+    except_3 = case_name != 'Gift Packages'
 
-    #button = driver.find_element_by_id('Cases')
-    elem.click()
-    print(elem.get_property("href"))
-    driver.close()
+    if except_1 and except_2 and except_3:
+        return case_text.find('img').get('alt')
+
