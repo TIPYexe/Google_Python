@@ -2,19 +2,19 @@ import json
 import requests
 from bs4 import BeautifulSoup as bs
 
-#import web_scrapper as scrapper
+import web_scrapper as scrapper
 
 URL = 'https://csgostash.com/containers/skin-cases'
 
 if __name__ == '__main__':
+
     page = requests.get(URL)
     soup = bs(page.content, features='html.parser')
 
-    ul_menu = soup.find('div', {'id':'navbar-expandable'}).find('ul')
-    ul_menu2 = ul_menu.findAll('li', {'class':'dropdown'})
-
+    menu = soup.find('div', {'id':'navbar-expandable'}).find('ul')
+    all_buttons = menu.findAll('li', {'class':'dropdown'})
     ok = 0
-    for buton in ul_menu2:
+    for buton in all_buttons:
 
         menu = buton.findAll('a', {'href':'#'})
         for row in menu:
@@ -26,7 +26,10 @@ if __name__ == '__main__':
             break
 
     elem_menu = buton.findAll('li')
+    elem_menu_set = set(elem_menu)
 
-    for name_case in elem_menu:
-        sub_cat = name_case.find('a')
-        print('SubCat: ', sub_cat, '\n')
+    cases_name = set(map(scrapper.extract_cases, elem_menu_set))
+
+    for name in cases_name:
+       print(name)
+
