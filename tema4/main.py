@@ -4,7 +4,6 @@ from bs4 import BeautifulSoup as bs
 
 import web_scrapper as scrapper
 
-
 URL = 'https://csgostash.com/containers/skin-cases'
 
 if __name__ == '__main__':
@@ -32,3 +31,6 @@ if __name__ == '__main__':
     elem_menu_set = set(elem_menu)   # o transform intr-o lista numarabila
 
     (cases_names, cases_links) = scrapper.extract_data(elem_menu_set)
+
+    for link in cases_links:
+        scrapper.extract_skin_from(link)
