@@ -41,34 +41,34 @@ def get_offer_from_market(skin_name):
 def add_price(skin, price, index):
     if index == 0:
         skin.extra.FN = price
-        print('FN: ' + str(skin.extra.FN))
+        # print('FN: ' + str(skin.extra.FN))
     if index == 1:
         skin.extra.MW = price
-        print('WW: ' + str(skin.extra.MW))
+        # print('WW: ' + str(skin.extra.MW))
     if index == 2:
         skin.extra.FT = price
-        print('FT: ' + str(skin.extra.FT))
+        # print('FT: ' + str(skin.extra.FT))
     if index == 3:
         skin.extra.WW = price
-        print('WW: ' + str(skin.extra.WW))
+        # print('WW: ' + str(skin.extra.WW))
     if index == 4:
         skin.extra.BS = price
-        print('BS: ' + str(skin.extra.BS))
+        # print('BS: ' + str(skin.extra.BS))
     if index == 5:
         skin.extra.SFN = price
-        print('SFN: ' + str(skin.extra.SFN))
+        # print('SFN: ' + str(skin.extra.SFN))
     if index == 6:
         skin.extra.SMW = price
-        print('SMW: ' + str(skin.extra.SMW))
+        # print('SMW: ' + str(skin.extra.SMW))
     if index == 7:
         skin.extra.SFT = price
-        print('SFT: ' + str(skin.extra.SFT))
+        # print('SFT: ' + str(skin.extra.SFT))
     if index == 8:
         skin.extra.SWW = price
-        print('SWW: ' + str(skin.extra.SWW))
+        # print('SWW: ' + str(skin.extra.SWW))
     if index == 9:
         skin.extra.SBS = price
-        print('SBS: ' + str(skin.extra.SBS))
+        # print('SBS: ' + str(skin.extra.SBS))
 
 
 def insert_offer_to_DB(Cases, procent):
@@ -110,7 +110,7 @@ def insert_offer_to_DB(Cases, procent):
                             nr_prices = nr_prices + 1
 
                     # Salvez pretul mediu de vanzare a skinului de calitatea short_q
-                    print(skin.weapon + ' | ' + skin.name)
+                    # print(skin.weapon + ' | ' + skin.name)
                     add_price(skin, total_price / nr_prices / 100, index)
 
                 # cu StatTrak
@@ -126,6 +126,6 @@ def insert_offer_to_DB(Cases, procent):
                             total_price += int(offer['price']['USD'])
                             nr_prices += 1
 
-                    print(skin.weapon + ' | ' + skin.name)
+                    # print(skin.weapon + ' | ' + skin.name)
                     add_price(skin, total_price / nr_prices / 100, index + 5)
-                    print()
+                    # print()
