@@ -16,7 +16,7 @@ class Extra:
 # pentru fiecare calitate stim pretul
 class Skin:
     def __init__(self):
-        self.extra = Extra
+        self.extra = Extra()
         self.name = ""
         self.weapon = ""
         self.rarity = ""
