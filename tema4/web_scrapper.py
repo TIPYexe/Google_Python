@@ -1,9 +1,6 @@
-import json
 import requests
-from selenium import webdriver
 from bs4 import BeautifulSoup as bs
 import Case_Skins as cls
-from selenium.webdriver.firefox.options import Options
 
 #region Extrag numele cutiilor
 
@@ -30,11 +27,12 @@ def filter_cases(case_text):
 
 def extract_data(data):
     data_filtered = set(filter(filter_cases, data))
-    return  set(map(extract_case_link_name, data_filtered))
+    return set(map(extract_case_link_name, data_filtered))
 
 #endregion
 
-def extract_skin_from(URL, ObjCase):
+
+def extract_skin_from(URL, ObjCase, text_Var):
     page = requests.get(URL)
     soup = bs(page.content, features='html.parser')
 
@@ -52,3 +50,53 @@ def extract_skin_from(URL, ObjCase):
         ObjSkin.name = box.find('h3').text.split(" | ")[1]
         ObjSkin.rarity = box.find('p', {'class': 'nomargin'}).text.split(' ')[0]
         ObjCase.Skins.append(ObjSkin)
+
+        # afisez in log viewer detalii despre skin, ca sa arat ca programul functioneaza
+
+        print_to_log('Extracted skin: ' + ObjSkin.name + ' | ' + ObjSkin.weapon + ' from case: ' + ObjCase.name,
+                     text_Var)
+
+
+def print_to_log(text, text_Var):
+    text_Var.set(text_Var.get() + '\n' + text)
+
+def extract_from_cases(URL, text_Var):
+    page = requests.get(URL)
+    soup = bs(page.content, features='html.parser')
+
+    menu = soup.find('div', {'id': 'navbar-expandable'}).find('ul')
+    all_buttons = menu.findAll('li', {'class': 'dropdown'})
+
+    ok = 0
+    for button in all_buttons:
+
+        menu = button.findAll('a', {'href': '#'})
+
+        # Cand gasesc butonul 'Cases' ok devine 1 si for-ul se opreste
+        for row in menu:
+            if (row.contents[0] == 'Cases'):
+                ok = 1
+                break
+
+        if ok == 1:
+            break
+
+    elem_menu = button.findAll('li')  # accesez lista de elemente din dropdown_menu
+    elem_menu_set = set(elem_menu)  # o transform intr-o lista numarabila
+
+    print_to_log("Gata extractia din meniu", text_Var)
+
+    Cases = []
+    for case_Link, case_Name in extract_data(elem_menu_set):
+        ObjCase = cls.Case()
+        ObjCase.name = case_Link.split('/')[5].replace('-', ' ')
+        ObjCase.link = case_Link
+        extract_skin_from(ObjCase.link, ObjCase, text_Var)
+        Cases.append(ObjCase)
+
+    print_to_log("Gata extractia din cutii", text_Var)
+
+    return Cases
+
+# TODO:
+#   - sa fac afisarea in textVar in timp real (iar compileaza tot si abia la final afiseaza textul
