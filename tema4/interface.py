@@ -85,21 +85,33 @@ btn_UpdateDB = tk.Button(frame, text="EXTRACT\nNAMES", image=pixel, bd=0, backgr
 btn_UpdateDB.place(x=12, y=208)
 
 btn_UpdatePrices = tk.Button(frame, text="EXTRACT\nPRICES", image=pixel, bd=0, background='gray63', fg='gray34', font=('Montserrat Black', 12), width=153, height=63, compound="c")
-btn_UpdatePrices.place(x=12, y=289)
+btn_UpdatePrices.place(x=12, y=284)
 # dada, vezi bine
 # sunt pe aceeasi coloana 2 butoane
 
 
 displayVar = tk.StringVar()
 # justify = left (aliniez textul la stanga)
-# anchor = 's' (ultimul text introdus ramane in josul paginii si oricum redimensionez Label-ul
-#               el ramane jos de tot)
-# height = 10 (inaltimea log viewer-ului sa fie de 10)
-displayLab = tk.Label(frame, textvariable=displayVar, height=11, width=60, justify='left', anchor='sw')
+# anchor = 'sw' (ultimul text introdus ramane in josul paginii si oricum redimensionez Label-ul
+#               el ramane jos de tot, fara a da resize la fereastra)
+displayLab = tk.Label(frame, textvariable=displayVar, height=11, width=55, justify='left', anchor='sw')
 displayLab.place(x=178, y=208)
 
-# btn_UpdatePrices.bind("<Button-1>", lambda event, p='TEXT NOU': log_viewer(event, p))
-# btn_UpdateDB.bind("<Button-1>", lambda event, a='': displayVar.set(a))
+
+select_risk = tk.Text(frame, font=('Montserrat Black', 22), bd=0, fg='tan2', bg='gray15', width=10, height=2)
+select_risk.tag_configure('center', justify='center')
+select_risk.insert('1.0', 'SELECT\nRISK LEVEL')
+select_risk.tag_add('center', '1.0', 'end')
+select_risk.place(x=590, y=225)
+
+
+btn_risk1 = tk.Label(frame, text="1", image=pixel, background='gold', fg='tan2', font=('Montserrat Black', 19), width=35, height=35, compound="c")
+btn_risk1.place(x=610, y=320)
+btn_risk2 = tk.Label(frame, text="2", image=pixel, background='gold', fg='tan2', font=('Montserrat Black', 19), width=35, height=35, compound="c")
+btn_risk2.place(x=670, y=320)
+btn_risk3 = tk.Label(frame, text="3", image=pixel, background='gold', fg='tan2', font=('Montserrat Black', 19), width=35, height=35, compound="c")
+btn_risk3.place(x=730, y=320)
+
 
 Cases = []
 btn_UpdateDB.bind("<Button-1>", extract_skins)
