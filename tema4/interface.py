@@ -1,7 +1,8 @@
 import tkinter as tk
 from PIL import ImageTk, Image
 from pylightxl import readxl
-import copy
+import os.path
+from os import path
 
 import price_scrapper as pricey
 import Case_Skins as cls
@@ -29,6 +30,10 @@ def extract_skins(event):
     # reactivez butonul
     btn_UpdateDB['state'] = 'active'
     btn_UpdateDB.bind("<Button-1>", extract_skins)
+
+    # activez si butonul pentru preturi in cazul in care era dezactivat
+    btn_UpdatePrices['state'] = 'active'
+    btn_UpdatePrices.bind("<Button-1>", extract_prices)
 
 
 def extract_prices(event):
@@ -114,8 +119,13 @@ btn_UpdateDB.place(x=12, y=208)
 btn_UpdatePrices = tk.Button(frame, text="EXTRACT\nPRICES", image=pixel, bd=0, background='gray63', fg='gray15',
                              font=('Montserrat Black', 12), width=153, height=63, compound="c")
 btn_UpdatePrices.place(x=12, y=284)
-# dada, vezi bine
-# sunt pe aceeasi coloana 2 butoane
+
+
+# daca fisierul Skin_names nu exista (si deci functia de pe btn-ul update prices nu are putea functiona
+# dezactivez butonul
+if ~path.exists('Files/Skin_names.xlsx'):
+    btn_UpdatePrices['state'] = 'disabled'
+    btn_UpdatePrices.unbind("<Button-1>")
 
 
 displayVar = tk.StringVar()
@@ -211,11 +221,6 @@ select_risk.place(x=265, y=617)
 Cases = []
 btn_UpdateDB.bind("<Button-1>", extract_skins)
 btn_UpdatePrices.bind("<Button-1>", extract_prices)
-
-# TODO:
-#   - sa incarc si texturile skin-urilor, iar atungi cand se alege o oferta, sa fie si afisata ca intr-un contract
-#     pe CS:GO
-#   - pana nu exista fisierul Skin_names.xlsx sa nu fie valabil butonul Extract Prices
 
 
 window.mainloop()
