@@ -68,7 +68,7 @@ def get_n_resize(skin_name):
 
 def print_trade_in(skin_in):
 
-    x = 24
+    x = 15
     y = 390
 
     for i in range(0, 10):
@@ -76,7 +76,7 @@ def print_trade_in(skin_in):
 
         if i == 5:
             y = 505
-            x = 24
+            x = 15
 
         skin_in_label.place(x=x, y=y)
         x += 115
@@ -128,11 +128,11 @@ displayLab.place(x=178, y=208)
 
 # region Select Risk Level.txt
 
-select_risk = tk.Text(frame, font=('Montserrat Black', 22), bd=0, fg='tan2', bg='gray15', width=10, height=2)
+select_risk = tk.Text(frame, font=('Montserrat Black', 25), bd=0, fg='tan2', bg='gray15', width=10, height=2)
 select_risk.tag_configure('center', justify='center')
 select_risk.insert('1.0', 'SELECT\nRISK LEVEL')
 select_risk.tag_add('center', '1.0', 'end')
-select_risk.place(x=590, y=225)
+select_risk.place(x=575, y=205)
 
 # endregion
 
@@ -141,19 +141,19 @@ select_risk.place(x=590, y=225)
 
 btn_risk1 = tk.Button(frame, text="1", image=pixel, relief='solid', bd=0, background='gold', fg='tan2',
                       font=('Montserrat Black', 19), width=35, height=35, compound="c")
-btn_risk1.place(x=610, y=320)
+btn_risk1.place(x=610, y=310)
 btn_risk2 = tk.Button(frame, text="2", image=pixel, relief='solid', bd=0, background='gold', fg='tan2',
                       font=('Montserrat Black', 19), width=35, height=35, compound="c")
-btn_risk2.place(x=670, y=320)
+btn_risk2.place(x=670, y=310)
 btn_risk3 = tk.Button(frame, text="3", image=pixel, relief='solid', bd=0, background='gold', fg='tan2',
                       font=('Montserrat Black', 19), width=35, height=35, compound="c")
-btn_risk3.place(x=730, y=320)
+btn_risk3.place(x=730, y=310)
 
 # endregion
 
 
-bg_trade_up = tk.Label(frame, image=pixel, background='gray80', width=800, height=360)
-bg_trade_up.place(x=12, y=379)
+bg_trade_up = tk.Label(frame, image=pixel, background='gray80', width=825, height=360)
+bg_trade_up.place(x=0, y=379)
 
 
 skin = cls.Skin()
@@ -161,14 +161,45 @@ skin.prices.append(0)
 skin.prices.append(125.3154332)
 # i = indicele calitatii skin-ului
 i = 1
+
+
 # skin_in trebuie sa fie global, altfel se va sterge poza dupa executarea functiei, si va ramane label-ul gol
 skin_in = get_n_resize('AK-47 Aquamarine Revenge')
+# afisez cele 10 skinuri
 print_trade_in(skin_in)
-skin_in_data = tk.Label(frame, image=skin_in, text='PRICE\n' + str(round(skin.prices[i],2)) + '$\nQ: ' + alg.num_to_quality(i),
-                        font=('Montserrat Black', 17), fg='Dark green', background='SpringGreen3', width=216, height=108, compound='left')
-skin_in_data.place(x=24, y=620)
+# afisez date despre skinul de cumparat
+skin_in_data = tk.Label(frame, image=skin_in, text='PRICE\n' + str(round(skin.prices[i], 2)) + '$\nQ: ' + alg.num_to_quality(i),
+                        font=('Montserrat Black', 16), fg='Dark green', background='SpringGreen3', width=221, height=108, compound='left')
+skin_in_data.place(x=15, y=620)
 
+#region skin_out
 
+skin_out_1 = get_n_resize('AK-47 Aquamarine Revenge')
+skin_in_data = tk.Label(frame, image=skin_out_1, text='PRICE\n' + str(round(skin.prices[i], 2)) + '$\nQ: ' + alg.num_to_quality(i),
+                        font=('Montserrat Black', 16), fg='firebrick4', background='brown3', width=216, height=106, compound='left')
+skin_in_data.place(x=591, y=390)
+
+skin_out_2 = get_n_resize('AK-47 Aquamarine Revenge')
+skin_in_data = tk.Label(frame, image=skin_out_2, text='PRICE\n' + str(round(skin.prices[i], 2)) + '$\nQ: ' + alg.num_to_quality(i),
+                        font=('Montserrat Black', 16), fg='firebrick4', background='brown3', width=216, height=106, compound='left')
+skin_in_data.place(x=591, y=505)
+
+skin_out_3 = get_n_resize('AK-47 Aquamarine Revenge')
+skin_in_data = tk.Label(frame, image=skin_out_3, text='PRICE\n' + str(round(skin.prices[i], 2)) + '$\nQ: ' + alg.num_to_quality(i),
+                        font=('Montserrat Black', 16), fg='firebrick4', background='brown3', width=216, height=106, compound='left')
+skin_in_data.place(x=591, y=620)
+
+#endregion
+
+#region TOTAL
+select_risk = tk.Text(frame, font=('Montserrat Black', 22), bd=0, fg='gray34', bg='gray80', width=15, height=3)
+select_risk.tag_configure('center', justify='center')
+select_risk.insert('1.0', 'TOTAL: ' + str(round(skin.prices[i]*10, 2)) + '$\n'
+                                    + 'MAX LOSS: ' + '100' + '$\n'
+                                    + 'MIN WIN: ' + '202' + '$')
+select_risk.tag_add('center', '1.0', 'end')
+select_risk.place(x=265, y=617)
+#endregion
 
 # TODO:
 #   - la catergoria de get offer sa am 3 butoane care sa reprezinte
