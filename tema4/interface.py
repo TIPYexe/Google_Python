@@ -85,7 +85,7 @@ def print_trade_in(skin_in):
 
 
 window = tk.Tk()
-window.geometry('825x733')
+window.geometry('825x750')
 window.title("CS:GO Trade-up Scrapper")
 window.resizable(False, False)
 
@@ -93,7 +93,7 @@ path_logo = 'Files/logo.png'
 
 pixel = tk.PhotoImage(width=1, height=1)
 
-frame = tk.Frame(bg='gray15', height=733, width=825)
+frame = tk.Frame(bg='gray15', height=750, width=825)
 frame.pack()
 
 # log_viewer = tk.Frame(master=window, weight=354.49, height=160.93, bg='white')
@@ -152,15 +152,23 @@ btn_risk3.place(x=730, y=320)
 # endregion
 
 
-bg_trade_up = tk.Label(frame, image=pixel, background='gray80', width=800, height=345)
+bg_trade_up = tk.Label(frame, image=pixel, background='gray80', width=800, height=360)
 bg_trade_up.place(x=12, y=379)
 
+
+skin = cls.Skin()
+skin.prices.append(0)
+skin.prices.append(125.3154332)
+# i = indicele calitatii skin-ului
+i = 1
+# skin_in trebuie sa fie global, altfel se va sterge poza dupa executarea functiei, si va ramane label-ul gol
 skin_in = get_n_resize('AK-47 Aquamarine Revenge')
 print_trade_in(skin_in)
+skin_in_data = tk.Label(frame, image=skin_in, text='PRICE\n' + str(round(skin.prices[i],2)) + '$\nQ: ' + alg.num_to_quality(i),
+                        font=('Montserrat Black', 17), fg='Dark green', background='SpringGreen3', width=216, height=108, compound='left')
+skin_in_data.place(x=24, y=620)
 
-# skin_in = get_n_resize('AK-47 Aquamarine Revenge')
-# skin_in_label = tk.Label(frame, image=skin_in, background='gray63', width=108, height=108)
-# skin_in_label.place(x=24, y=400)
+
 
 # TODO:
 #   - la catergoria de get offer sa am 3 butoane care sa reprezinte
